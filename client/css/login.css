@@ -1,0 +1,105 @@
+/* Reset some default styles */
+body, h1, h2, h3, p, ul, form {
+    margin: 0;
+    padding: 0;
+
+}
+
+/* General body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #2c3e50, #34495e);
+    color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    padding-top: 100px
+}
+
+/* Headings */
+h1, h2 {
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Form styles */
+form {
+    background: rgba(44, 62, 80, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(236, 240, 241, 0.2);
+    color: #ecf0f1;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+    outline: none;
+    border: 1px solid #3498db;
+}
+
+/* Buttons */
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #3498db;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #2980b9;
+}
+
+/* Links */
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Logbook Entries */
+ul {
+    list-style-type: none;
+    width: 100%;
+}
+
+li {
+    background: rgba(236, 240, 241, 0.2);
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    transition: transform 0.2s;
+}
+
+li:hover {
+    transform: scale(1.02);
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+    form {
+        width: 90%;
+    }
+}

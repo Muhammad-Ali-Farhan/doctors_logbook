@@ -1,0 +1,49 @@
+<!-- client/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor's Logbook</title>
+    <link rel="stylesheet" href="css/login.css">
+    
+</head>
+<body>
+    <h1>Doctor's Logbook</h1>
+
+    <div>
+        <h2>Register</h2>
+        <form id="registerForm">
+            <input type="text" id="registerUsername" placeholder="Username" required />
+            <input type="password" id="registerPassword" placeholder="Password" required />
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="loginUsername" placeholder="Username" required />
+            <input type="password" id="loginPassword" placeholder="Password" required />
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Add Logbook Entry</h2>
+        <form id="logbookForm">
+            <input type="text" id="patientName" placeholder="Patient Name" required />
+            <input type="date" id="Date" required />
+            <input type="text" id="issue" placeholder="Issue" required />
+            <textarea id="notes" placeholder="Notes" required></textarea>
+            <textarea id="treatmentPlan" placeholder="Treatment Plan (optional)"></textarea>
+            <textarea id="doctorNotes" placeholder="Doctor Notes (optional)"></textarea>
+            <button type="submit">Add Entry</button>
+        </form>
+    </div>
+
+    <div id="logbookEntries"></div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
