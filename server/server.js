@@ -11,6 +11,8 @@ const { LogbookCollection, LogInCollection } = require('./mongo');
 
 
 const app = express();
+const cors = require('cors');
+app.use(cors());
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
