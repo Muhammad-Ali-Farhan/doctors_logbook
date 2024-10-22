@@ -3,7 +3,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const logbookRoutes = require('./routes/logbookRoutes');
 const User = require('./models/User');
 require('dotenv').config();
