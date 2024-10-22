@@ -1,14 +1,14 @@
-// controllers/logbookController.js
+
 const Logbook = require('../models/LogbookEntry');
 
-// Save a new logbook entry
+
 exports.createLogbookEntry = async (req, res) => {
   try {
     const { patientName, date, mrNumber, patientInfo, type } = req.body;
 
-    // Create new logbook entry
+    
     const logbookEntry = new Logbook({
-      userId: req.user._id, // Assuming user ID comes from authentication
+      userId: req.user._id, 
       patientName,
       date,
       mrNumber,
@@ -16,7 +16,7 @@ exports.createLogbookEntry = async (req, res) => {
       type
     });
 
-    // Save to database
+    
     await logbookEntry.save();
 
     res.status(201).json({ message: 'Logbook entry created successfully', logbookEntry });

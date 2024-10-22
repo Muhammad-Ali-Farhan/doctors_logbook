@@ -1,4 +1,4 @@
-// server/routes/userRoutes.js
+
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -6,7 +6,7 @@ const User = require('../models/User');
 
 const router = express.Router();
 
-// User registration
+
 router.post('/register', async (req, res) => {
     const { username, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -19,7 +19,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// User login
+
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username });

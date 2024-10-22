@@ -7,12 +7,12 @@ const bcrypt = require('bcrypt');
 const logbookRoutes = require('./routes/logbookRoutes');
 const User = require('./models/User');
 require('dotenv').config();
-const { LogbookCollection, LogInCollection } = require('./mongo'); // Assuming you've set up models correctly
+const { LogbookCollection, LogInCollection } = require('./mongo'); 
 
-// Create the Express app
+
 const app = express();
 
-// Middleware
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({
@@ -22,45 +22,45 @@ app.use(session({
 }));
 
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, '../client/views')); // Set up views directory
+app.set('views', path.join(__dirname, '../client/views')); 
 app.use(express.static(path.join(__dirname, '../client')));
 
-// MongoDB connection
-mongoose.connect('mongodb+srv://mohalifarhan:AXhBteYQw3M7om6M@clusterlog.vd93z.mongodb.net/?retryWrites=true&w=majority&appName=ClusterLog', { useNewUrlParser: true, useUnifiedTopology: true })
+
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))
     .catch((err) => console.error('MongoDB connection error:', err));
 
-// Define the logbook schema and model
 
 
 
-// Routes
 
-// Home route
+
+
+
 app.get('/', (req, res) => {
     if (req.session.user) {
         res.redirect('/logbooks');
     } else {
-        res.render('login'); // Render login view
+        res.render('login'); 
     }
 });
 
-// Render login page
+
 app.get('/login', (req, res) => {
     res.render('login');
 });
 
-// Render signup page
+
 app.get('/signup', (req, res) => {
     res.render('signup');
 });
 
-// User signup route
-// User signup route
+
+
 app.post('/api/signup', async (req, res) => {
     const { username, password } = req.body;
     
-    // Log the received username and password for debugging
+    
     console.log('Signup request:', { username, password });
 
     const existingUser = await User.findOne({ username });
@@ -69,11 +69,11 @@ app.post('/api/signup', async (req, res) => {
         return res.status(400).json({ message: 'User already exists' });
     }
 
-    const user = new User({ username, password }); // No need to hash here
+    const user = new User({ username, password }); 
 
     try {
-        await user.save(); // Save user to database
-        req.session.user = user; // Log user in after signing up
+        await user.save(); 
+        req.session.user = user; 
         res.redirect('/logbooks');
     } catch (error) {
         console.error('Error saving user:', error);
@@ -82,7 +82,7 @@ app.post('/api/signup', async (req, res) => {
 });
 
 
-// Login route
+
 app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
@@ -95,25 +95,25 @@ app.post('/api/login', async (req, res) => {
     res.redirect('/logbooks');
 });
 
-// Create logbook entry route
-// Create logbook entry route
+
+
 app.post('/api/logbooks', async (req, res) => {
     try {
         const { patientName, mrNumber, date, patientInfo, type } = req.body;
 
-        // Create a new logbook entry
+        
         const newLogbook = new LogbookCollection({
-            userId: req.session.user._id, // Ensure the user is logged in
+            userId: req.session.user._id, 
             patientName,
-            mrNumber, // Ensure this is treated as a string
-            date, // Ensure the date is correctly formatted
+            mrNumber, 
+            date, 
             patientInfo,
             type
         });
         console.log('Received date:', date);
 
 
-        // Save the logbook entry to the database
+        
         await newLogbook.save();
         res.status(201).json({ message: 'Entry added successfully!' });
     } catch (error) {
@@ -123,7 +123,7 @@ app.post('/api/logbooks', async (req, res) => {
 });
 
 
-// Get user logbooks route
+
 app.get('/logbooks', async (req, res) => {
     if (!req.session.user) {
         return res.redirect('/');
@@ -132,13 +132,13 @@ app.get('/logbooks', async (req, res) => {
     try {
         const logbooks = await LogbookCollection.find({ userId: req.session.user._id });
         
-        // Format logbooks for rendering
+        
         const formattedLogbooks = logbooks.map(logbook => {
-            console.log('Received logbook:', logbook);  // Log the logbook object for debugging
+            console.log('Received logbook:', logbook);  
             return {
                 ...logbook._doc,
-                date: logbook._doc.date ? new Date(logbook._doc.date).toISOString().split('T')[0] : 'Date not available', // Safeguard for undefined dates
-                mrNumber: logbook.mrNumber // Ensure MR number is treated as a string
+                date: logbook._doc.date ? new Date(logbook._doc.date).toISOString().split('T')[0] : 'Date not available', 
+                mrNumber: logbook.mrNumber 
             };
         });
         
@@ -152,7 +152,7 @@ app.get('/logbooks', async (req, res) => {
 });
 
 
-// Edit logbook entry route
+
 app.post('/logbooks/edit/:mrNumber', async (req, res) => {
     const { patientName, patientInfo, type } = req.body;
     const { mrNumber } = req.params;
@@ -177,15 +177,15 @@ app.post('/logbooks/edit/:mrNumber', async (req, res) => {
     }
 });
 
-// Delete logbook route
-// Backend route for deleting logbook entry
-// Ensure this part of your code correctly references the LogbookCollection
-// Delete logbook route
+
+
+
+
 app.delete('/api/logbooks/:mrNumber', async (req, res) => {
     const { mrNumber } = req.params;
 
     try {
-        // Convert mrNumber to a number for the query, assuming mrNumber is stored as a number in the database
+        
         const result = await LogbookCollection.deleteOne({ mrNumber: Number(mrNumber) });
 
         if (result.deletedCount === 1) {
@@ -204,7 +204,7 @@ app.delete('/api/logbooks/:mrNumber', async (req, res) => {
 
 
 
-// Logout route
+
 app.get('/logout', (req, res) => {
     req.session.destroy(err => {
         if (err) {
@@ -223,20 +223,20 @@ app.get('/logout', (req, res) => {
 
 
 
-// Search logbook by MR number
-// Search logbook route
+
+
 app.get('/api/logbooks/search', async (req, res) => {
     const { patientName, mrNumber } = req.query;
 
     try {
-        let query = { userId: req.session.user._id }; // Ensure the user is logged in
+        let query = { userId: req.session.user._id }; 
 
         if (patientName) {
-            query.patientName = { $regex: patientName, $options: 'i' }; // Case-insensitive search
+            query.patientName = { $regex: patientName, $options: 'i' }; 
         }
 
         if (mrNumber) {
-            query.mrNumber = mrNumber; // Match exact MR Number
+            query.mrNumber = mrNumber; 
         }
 
         const logbooks = await LogbookCollection.find(query);
@@ -248,20 +248,20 @@ app.get('/api/logbooks/search', async (req, res) => {
     }
 });
 
-// Assuming you have a Mongoose model for logbooks
 
-// Fetch logbook entries and send to the frontend
+
+
 app.get('/api/logbooks', async (req, res) => {
     try {
         const logbooks = await LogbookCollection.find({ userId: req.user._id });
 
-        // Format the dates before sending the response
+        
         const formattedLogbooks = logbooks.map(logbook => {
-            console.log('Received logbook:', logbook);  // Log the logbook object for debugging
+            console.log('Received logbook:', logbook);  
             return {
                 ...logbook._doc,
-                date: logbook._doc.date ? new Date(logbook._doc.date).toISOString().split('T')[0] : 'Date not available', // Safeguard for undefined dates
-                mrNumber: logbook.mrNumber // Ensure MR number is treated as a string
+                date: logbook._doc.date ? new Date(logbook._doc.date).toISOString().split('T')[0] : 'Date not available', 
+                mrNumber: logbook.mrNumber 
             };
         });
         
@@ -276,20 +276,21 @@ app.get('/api/logbooks', async (req, res) => {
 
 const hbs = require('hbs');
 
-// Register the formatDate helper
+
 hbs.registerHelper('formatDate', function(date) {
-    console.log('Formatting date:', date); // Debugging line
+    console.log('Formatting date:', date); 
     if (!date) return '';
     const parsedDate = new Date(date);
     if (isNaN(parsedDate.getTime())) return 'Invalid Date';
-    const options = { day: 'numeric', month: 'long', year: 'numeric' }; // Format: day month year
+    const options = { day: 'numeric', month: 'long', year: 'numeric' }; 
     return parsedDate.toLocaleDateString('en-US', options);
 });
 
 
 
-// Start server
+
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
-    console.log(`Server running on port http://localhost:${port}`);
+    console.log(`Server running on port http:localhost:${port}`);
 });
+

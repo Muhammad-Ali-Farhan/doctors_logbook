@@ -1,9 +1,9 @@
 const express = require('express');
 const User = require('../models/User');
-const { LogbookCollection } = require('../mongo'); // Import the LogbookCollection from mongo.js
+const { LogbookCollection } = require('../mongo'); 
 const router = express.Router();
 
-// Register route
+
 router.post('/register', async (req, res) => {
     const { username, password } = req.body;
     const existingUser = await User.findOne({ username });
@@ -18,7 +18,7 @@ router.post('/register', async (req, res) => {
     res.status(201).json({ message: 'User registered' });
 });
 
-// Login route
+
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username, password });

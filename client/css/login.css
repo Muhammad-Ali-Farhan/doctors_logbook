@@ -1,11 +1,14 @@
-/* Reset some default styles */
+html, body {
+    height: 100%; 
+    margin: 0; 
+    overflow-x: hidden; 
+}
 body, h1, h2, h3, p, ul, form {
     margin: 0;
     padding: 0;
-
 }
 
-/* General body styles */
+
 body {
     font-family: 'Arial', sans-serif;
     background: linear-gradient(to right, #2c3e50, #34495e);
@@ -15,16 +18,16 @@ body {
     align-items: center;
     height: 100vh;
     flex-direction: column;
-    padding-top: 100px
+    padding-top: 100px;
 }
 
-/* Headings */
+
 h1, h2 {
     margin-bottom: 20px;
     font-weight: 600;
 }
 
-/* Form styles */
+
 form {
     background: rgba(44, 62, 80, 0.9);
     padding: 20px;
@@ -35,8 +38,10 @@ form {
     flex-direction: column;
 }
 
+
 input[type="text"],
 input[type="password"],
+input[type="email"],
 textarea {
     padding: 10px;
     margin-bottom: 15px;
@@ -53,23 +58,23 @@ textarea:focus {
     border: 1px solid #3498db;
 }
 
-/* Buttons */
+
 button {
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background: #3498db;
+    background: #363636;
     color: white;
     cursor: pointer;
     font-weight: bold;
     transition: background 0.3s ease;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
-button:hover {
-    background: #2980b9;
-}
 
-/* Links */
+
+
 a {
     color: #3498db;
     text-decoration: none;
@@ -79,7 +84,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Logbook Entries */
+
 ul {
     list-style-type: none;
     width: 100%;
@@ -97,9 +102,106 @@ li:hover {
     transform: scale(1.02);
 }
 
-/* Responsive */
+
 @media (max-width: 400px) {
     form {
         width: 90%;
     }
+}
+
+
+#logbookList {
+    background-color: white;
+    color: black;
+}
+
+#logbookList tr {
+    background-color: white;
+    color: black;
+}
+
+
+#searchResults {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#searchLogSection {
+    width: 338px;
+}
+
+#createLogSection {
+    width: 338px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 20px 0;
+    width: 1000px;
+}
+
+.form-section {
+    width: 40%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #000000;
+}
+
+h2 {
+    text-align: center;
+}
+
+
+input[readonly] {
+    background-color: #616161;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+#logoutButton {
+    width: 100px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #dc3545;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#logoutButton:hover {
+    background-color: #c82333;
+}
+
+button:hover {
+    box-shadow: 0 0 20px 5px rgb(163, 163, 163);
+    background-color: #363636;
 }

@@ -1,10 +1,10 @@
-const LogInCollection = require('../models/mongo'); // Ensure you import your model
+const LogInCollection = require('../models/mongo'); 
 
-// Create a logbook entry
+
 const createLogbookEntry = async (req, res) => {
     const { patientName, Date, mrNumber, patientInfo, type } = req.body;
 
-    // Input validation
+    
     if (!patientName || !Date || !mrNumber || !type) {
         return res.status(400).json({ message: 'Please fill in all required fields.' });
     }
@@ -19,10 +19,10 @@ const createLogbookEntry = async (req, res) => {
             
         };
 
-        // Find the user and save the logbook entry
+        
         const user = await LogInCollection.findById(req.user._id);
-        user.logbooks.push(logbookEntry); // Add entry to user's logbooks array
-        await user.save(); // Save the user document
+        user.logbooks.push(logbookEntry); 
+        await user.save(); 
 
         res.status(201).json(logbookEntry);
     } catch (error) {
@@ -32,7 +32,7 @@ const createLogbookEntry = async (req, res) => {
 };
 
 
-// Edit a logbook entry
+
 const editLogbookEntry = async (req, res) => {
     const { id } = req.params;
     const { patientName, Date, issue, treatmentPlan, doctorNotes } = req.body;
@@ -41,7 +41,7 @@ const editLogbookEntry = async (req, res) => {
         const logbookEntry = await LogbookEntry.findByIdAndUpdate(
             id,
             { patientName, Date, issue, treatmentPlan, doctorNotes },
-            { new: true, runValidators: true } // Return the updated entry and validate
+            { new: true, runValidators: true } 
         );
 
         if (!logbookEntry) {
@@ -54,7 +54,7 @@ const editLogbookEntry = async (req, res) => {
     }
 };
 
-// Delete a logbook entry
+
 const deleteLogbookEntry = async (req, res) => {
     const { id } = req.params;
 

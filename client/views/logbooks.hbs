@@ -4,141 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/login.css">
-    <style>
-        /* Styles for the table entries */
-        #logbookList {
-            background-color: white; /* Table background color */
-            color: black; /* Text color */
-        }
-
-        #logbookList tr {
-            background-color: white; /* Row background color */
-            color: black; /* Row text color */
-        }
-
-        /* Styles for the search results */
-        #searchResults {
-            color: white; /* Text color for search results */
-            background-color: rgba(0, 0, 0, 0.7); /* Optional: add a background color for contrast */
-            padding: 10px; /* Add some padding for better appearance */
-            border-radius: 5px; /* Optional: rounded corners */
-        }
-
-        input[type="text"],
-        input[type="password"],
-        input[type="email"],
-        textarea {
-            background-color: white;
-            color: black;
-            border: 1px solid #ccc;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-
-        .row {
-            background-color: white;
-            color: black;
-        }
-
-        input[type="text"]:focus,
-        input[type="password"]:focus,
-        input[type="email"]:focus,
-        textarea:focus {
-            outline: none;
-            border-color: #888;
-        }
-
-        .container {
-            display: flex;
-            justify-content: space-evenly; /* Space buttons evenly in the container */
-            margin: 20px 0; /* Vertical margin for spacing */
-            width: 1000px;
-        }
-
-        .form-section {
-            width: 40%; /* Adjust width */
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            background-color: #494949;
-        }
-
-        h2 {
-            text-align: center;
-        }
-
-        input[readonly] {
-            background-color: #616161;
-        }
-
-        /* Button styles */
-        button {
-            width: 100%; /* Full width */
-            padding: 10px; /* Padding for buttons */
-            margin-bottom: 10px; /* Space between buttons */
-            border: none; /* No border */
-            border-radius: 5px; /* Rounded corners */
-            background-color: #007bff; /* Button background color */
-            color: white; /* Button text color */
-            font-size: 16px; /* Font size */
-            cursor: pointer; /* Pointer on hover */
-        }
-
-        button:hover {
-            background-color: #0056b3; /* Darker blue on hover */
-        }
-
-        /* Form styling */
-        form {
-            display: flex;
-            flex-direction: column; /* Stack form elements vertically */
-            margin-top: 15px; /* Space above the form */
-            width: 90%;
-        }
-
-        form input, form textarea {
-            margin: 10px; /* Space between input fields */
-            padding: 8px; /* Padding for input fields */
-            border: 1px solid #ccc; /* Border for input fields */
-            border-radius: 5px; /* Rounded corners for input fields */
-
-        }
-
-        .search-results {
-            margin-top: 20px; /* Space above the results */
-            text-align: center; /* Center the results */
-        }
-
-        /* Table styling */
-        table {
-            width: 100%; /* Full width */
-            border-collapse: collapse; /* Collapse borders */
-            margin-top: 20px; /* Space above the table */
-        }
-
-        th, td {
-            border: 1px solid #ccc; /* Border for table cells */
-            padding: 8px; /* Padding for table cells */
-            text-align: left; /* Align text to the left */
-        }
-
-        th {
-            background-color: #f2f2f2; /* Light background for headers */
-        }
-
-        .error-message {
-            color: red; /* Error message color */
-            text-align: center; /* Center the error message */
-            margin-top: 10px; /* Space above the error message */
-        }
-    </style>
+    
 </head>
 <body>
     <h1>Your Logbook</h1>
-
+     <button id="logoutButton" onclick="window.location.href='/logout'" style="margin-bottom: 20px;">Log Out</button>
     <div class="container">
-        <!-- Create Logbook Button / Form -->
         <div class="form-section" id="createLogSection">
             <button id="createButton" onclick="showCreateForm()">Create a New Log</button>
             <form id="createForm" onsubmit="return addLogbook(event);" method="POST" style="display: none;">
@@ -163,12 +34,11 @@
             </form>
         </div>
 
-        <!-- Search Logbook Button / Form -->
-        <!-- Search Logbook Button / Form -->
+
         <div class="form-section" id="searchLogSection">
             <button id="searchButton" onclick="showSearchForm()">Search Log</button>
             <form id="search-form">
-               <!-- Assuming this is part of your logbooks.hbs -->
+
                 <input type="text" id="nameInput" placeholder="Enter patient's name">
                 <button type="button" id="searchNameButton">Search by Name</button>
 
@@ -185,8 +55,8 @@
 
     </div>
 
-    <!-- Display Your Logbooks -->
-    <h2>Your Logbook</h2>
+    
+    <h2>Your Logs</h2>
     <table id="logbookTable">
         <thead>
             <tr>
@@ -203,7 +73,7 @@
             <tr>
                 <td>{{this.patientName}}</td>
                 <td>{{formatDate date}}</td>
-                <td>{{this.mrNumber}}</td>
+                <td>UL300000{{this.mrNumber}}</td> 
                 <td>{{this.patientInfo}}</td>
                 <td>{{this.type}}</td>
                 <td><button onclick="deleteLogbook('{{this.mrNumber}}')">Delete</button></td>
@@ -211,7 +81,7 @@
             {{/each}}
         </tbody>
     </table>
-    <a href="/logout">Log Out</a>
+    
     <script src="/js/main.js"></script>
 </body>
 </html>
